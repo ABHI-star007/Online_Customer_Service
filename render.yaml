@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: ocsc-api
+    runtime: docker
+    plan: free
+    rootDir: CSC_App
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+
+  - type: web
+    name: ocsc-frontend
+    runtime: static
+    rootDir: Frontend
+    buildCommand: grep -rl 'http://localhost:8080' . | xargs sed -i "s#http://localhost:8080#${API_URL}#g"
+    staticPublishPath: .
+    envVars:
+      - key: API_URL
+        sync: false
