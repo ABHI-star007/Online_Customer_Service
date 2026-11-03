@@ -5,13 +5,9 @@ services:
     plan: free
     rootDir: CSC_App
     dockerfilePath: ./Dockerfile
+    # No DB_URL: the container starts its own MariaDB (data resets on restart).
+    # Set DB_URL/DB_USERNAME/DB_PASSWORD to use an external MySQL instead.
     envVars:
-      - key: DB_URL
-        sync: false
-      - key: DB_USERNAME
-        sync: false
-      - key: DB_PASSWORD
-        sync: false
       - key: CORS_ORIGINS
         sync: false
 
